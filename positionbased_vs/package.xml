@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>positionbased_vs</name>
+  <version>1.0.0</version>
+  <description>The tracker_visp package</description>
+
+  <maintainer email="lucamarchionna97@gmail.com">Luca Marchionna</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>geometry_msgs</depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>pcl_ros</build_depend>
+  <build_depend>pcl_conversions</build_depend>
+  <build_depend>pcl_msgs</build_depend>  
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>visp_bridge</build_depend>
+  <build_depend>visp</build_depend>
+  <build_depend>visp_ros</build_depend>
+  <build_depend>vision_visp</build_depend>
+
+
+  <build_export_depend>pcl_ros</build_export_depend>
+  <build_export_depend>pcl_conversions</build_export_depend>
+  <build_export_depend>pcl_msgs</build_export_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <build_export_depend>visp_bridge</build_export_depend>
+  <build_export_depend>visp</build_export_depend>
+  <build_export_depend>visp_ros</build_export_depend>
+  <build_export_depend>vision_visp</build_export_depend>
+
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>pcl_ros</exec_depend>
+  <exec_depend>pcl_conversions</exec_depend>
+  <exec_depend>pcl_msgs</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>visp_bridge</exec_depend>
+  <exec_depend>visp</exec_depend>
+  <exec_depend>visp_ros</exec_depend>
+  <exec_depend>vision_visp</exec_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>

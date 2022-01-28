@@ -1,0 +1,3 @@
+bool initialGuessPose
+---
+std_msgs/Bool execution

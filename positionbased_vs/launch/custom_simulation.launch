@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>	
+
+	<include file="$(find edo_gazebo)/launch/edo_gripper.launch">
+	</include>
+
+	<include file="$(find edo_gripper_moveit)/launch/edo_moveit_planning_execution.launch" ns="edo" >
+		<arg name="sim" value="true" />
+	</include> 
+
+	<include file="$(find edo_gripper_moveit)/launch/moveit_rviz.launch" ns="edo" >
+		<arg name="config" value="true" />
+	</include> 
+</launch>
+
