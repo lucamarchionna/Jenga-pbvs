@@ -1,0 +1,4 @@
+*.png
+*.jpeg
+.vscode
+positionbased_vs/.vscode
