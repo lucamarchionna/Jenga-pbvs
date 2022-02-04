@@ -61,6 +61,7 @@ pbvs::pbvs(ros::NodeHandle& nh) : node_handle(nh), s(vpFeatureTranslation::cMo),
 
   velocityInput = node_handle.advertise<geometry_msgs::TwistStamped>("/servo_server/delta_twist_cmds", 1);
   startingPos = node_handle.advertise<geometry_msgs::PoseStamped>("/initialGuestPos", 1);
+  lastPose = node_handle.advertise<geometry_msgs::Pose>("/lastPose", 1);
 
   init_matrices();
   init_servo();
@@ -164,10 +165,13 @@ void pbvs::init_servo()
   task.addFeature(s_tu, s_tu_star); //, vpFeatureThetaU::selectTUy() | vpFeatureThetaU::selectTUx());
 
   error = 5;
-  threshold = 0.00002;
+  // threshold = 0.00002;
+  threshold = 0.00008; //only for simulation
   block_axis = false;
   vitesse = 0.0002;
   rapport = 0;
+  threshold_pose = 0.015;
+
 
 }
 
@@ -218,14 +222,32 @@ void pbvs::estimationCallback(const geometry_msgs::Pose& tracker_pose_P)
       // ros::Duration(3).sleep();
       // ROS_INFO("New pose took");
       take_cTo = false;
-      baseTtarget.print();
+      lastPose.publish(tracker_pose_P);
+      lastPoseReceived = tracker_pose_P;
     }
 
     else {    
       block_axis = true;
       //velocityData = approach(velocityData);
-      velocityData.twist.linear.z = 0.04;
-      velocityInput.publish(velocityData);
+
+      if (lastPoseReceived.position.z - camTtarget[2][3] < threshold_pose && retract == false )  {
+        signPoseReceived = 1.0; 
+        velocityData.twist.linear.z = signPoseReceived*0.04;
+        velocityInput.publish(velocityData);
+      }
+
+      else if (lastPoseReceived.position.z - camTtarget[2][3] < 0 && retract == true)  {
+        signPoseReceived = 0.0; 
+      }
+
+      else {
+        signPoseReceived = -1.0; 
+        velocityData.twist.linear.z = signPoseReceived*0.04;
+        velocityInput.publish(velocityData);
+        retract = true;
+      }
+
+
       }
     }
 

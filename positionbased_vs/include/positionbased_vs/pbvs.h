@@ -57,6 +57,7 @@ class pbvs
         ros::Subscriber subEstimationPose; 
         ros::Publisher velocityInput;
         ros::Publisher startingPos;
+        ros::Publisher lastPose;
         ros::ServiceClient client;
         
         static const string PLANNING_GROUP; 
@@ -72,6 +73,7 @@ class pbvs
 
         vpHomogeneousMatrix eeTcam, baseTee, eeTtarget, baseTtarget, targetTcam, cam_desTtarget, camTtarget, cdTc, offset, cdTtarget, camTee, camTbase;
         geometry_msgs::PoseStamped initialGuestPos;
+        geometry_msgs::Pose lastPoseReceived;
         vpTranslationVector t_off;
         vpRxyzVector rxyz(vpRotationMatrix);
         vpRotationMatrix R_off;
@@ -79,6 +81,7 @@ class pbvs
         double translX;
         double translY;
         double translZ;
+        float signPoseReceived{1.0};
         vpRotationMatrix cdRo;
 
 
@@ -104,10 +107,11 @@ class pbvs
         geometry_msgs::TwistStamped velocityData;
         double error;
         positionbased_vs::InitialGuess srv;
-        double threshold;
+        double threshold, threshold_pose{0.10};
         double vitesse;
         double rapport;
-        bool block_axis{false}, take_cTo{true};
+        double tol{0.01};
+        bool block_axis{false}, take_cTo{true}, retract{false};
         vpColVector v_ee(unsigned int n), omega_ee(unsigned int n), v_cam, v(unsigned int n), e1, proj_e1;
 
 
